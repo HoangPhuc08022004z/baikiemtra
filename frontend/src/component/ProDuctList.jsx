@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";  
-
+import "./Style.css";
 export default function ProDuctList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate(); 
@@ -17,17 +17,15 @@ export default function ProDuctList() {
   };
 
   const handleEditProduct = (id) => {
-    navigate(`/edit/${id}`); // Điều hướng đến trang chỉnh sửa sản phẩm
+    navigate(`/edit/${id}`); 
   };
 
   const handleDeleteProduct = (id) => {
-    // Gửi yêu cầu xoá sản phẩm
     if (window.confirm("Bạn có chắc chắn muốn xoá sản phẩm này?")) {
       fetch(`http://localhost:3000/products/${id}`, {
         method: "DELETE",
       })
         .then(() => {
-          // Sau khi xoá thành công, cập nhật lại danh sách sản phẩm
           setProducts(products.filter((product) => product.id !== id));
         })
         .catch((error) => console.error("Lỗi khi xoá sản phẩm:", error));
@@ -35,10 +33,10 @@ export default function ProDuctList() {
   };
 
   return (
-    <>
+    <div className="product-list-container">
       <h1>Danh sách sản phẩm</h1>
       <div>
-        <button onClick={handleAddProduct}>Thêm Mới</button>
+        <button onClick={handleAddProduct} className="btn-add">Thêm Mới</button>
       </div>
       <div>
         <table>
@@ -63,14 +61,14 @@ export default function ProDuctList() {
                 <td>{item.description}</td>
                 <td>{item.price}</td>
                 <td>
-                  <button onClick={() => handleEditProduct(item.id)}>Sửa</button>
-                  <button onClick={() => handleDeleteProduct(item.id)}>Xoá</button> {/* Nút Xoá */}
+                  <button onClick={() => handleEditProduct(item.id)} className="btn-edit">Sửa</button>
+                  <button onClick={() => handleDeleteProduct(item.id)} className="btn-delete">Xoá</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 }

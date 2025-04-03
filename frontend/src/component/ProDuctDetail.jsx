@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./Style.css"; // Import file CSS vào đây
 
 function ProDuctDetail() {
     const { id } = useParams(); 
@@ -28,7 +29,9 @@ function ProDuctDetail() {
             <h2>{product.title}</h2>
             <p><strong>Mô tả:</strong> {product.description}</p>
             <p><strong>Giá:</strong> {product.price}</p>
-           
+            
+            {/* Nút trở về */}
+            <button className="back-btn" onClick={() => window.history.back()}>Trở về</button>
         </div>
     );
 }
